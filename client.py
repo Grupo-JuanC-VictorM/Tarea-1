@@ -43,7 +43,7 @@ def client_program():
 
     message = input(" -> ")  # take input
 
-    while message.lower().strip() != 'bye':
+    while message.lower().strip() != 'chao':
         client_socket.send(encrypt(message,alphabet,encode_alphabet).encode())  # send message
         file.write(time.strftime("%d/%m/%y") + " " +time.strftime("%H:%M:%S") +" Mensaje enviado\n")
         data = decrypt(client_socket.recv(1024).decode(),alphabet,encode_alphabet)  # receive response
