@@ -1,5 +1,6 @@
 import socket
 import string
+import time
 
 # Alfabeto para decodificar/codificar:
 '''
@@ -32,6 +33,8 @@ def encrypt(text, alphabet, encode_alphabet):
     return encrypt_text
 
 def server_program():
+    file = open("logs_server.txt","a")
+    file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " SE INICIA CONEXIÓN\n")
     # get the hostname
     host = socket.gethostname()
     port = 5000  # initiate port no above 1024
@@ -47,14 +50,20 @@ def server_program():
     while True:
         # receive data stream. it won't accept data packet greater than 1024 bytes
         data = decrypt(conn.recv(1024).decode(),alphabet,encode_alphabet)
+        file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " Mensaje recibido\n")
         if not data:
             # if data is not received break
+            file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " Mensaje de cierre recibido o no se recibió mensaje\n")
             break
         print("from connected user: " + str(data))
         data = input(' -> ')
         conn.send(encrypt(data,alphabet,encode_alphabet).encode())  # send data to the client
+        file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " Mensaje enviado\n")
 
     conn.close()  # close the connection
+    file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " SE CIERRA CONEXIÓN\n")
+    file.write("---------------------------------------------------------------------------------------\n")
+    file.close()
 
 
 if __name__ == '__main__':
