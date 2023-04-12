@@ -35,26 +35,26 @@ def encrypt(text, alphabet, encode_alphabet):
 def client_program():
     file = open("logs_client.txt","a")
     file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " SE INICIA CONEXIÓN\n")
-    host = socket.gethostname()  # as both code is running on same pc
-    port = 5000  # socket server port number
+    host = socket.gethostname()  
+    port = 5000 
 
-    client_socket = socket.socket()  # instantiate
-    client_socket.connect((host, port))  # connect to the server
+    client_socket = socket.socket()
+    client_socket.connect((host, port)) 
 
-    message = input("(" +time.strftime("%H:%M:%S")+ ")" + " Ingrese mensaje -> ")  # take input
+    message = input("(" +time.strftime("%H:%M:%S")+ ")" + " Ingrese mensaje -> ")  
 
     while message.lower().strip() != 'chao':
-        client_socket.send(encrypt(message,alphabet,encode_alphabet).encode())  # send message
+        client_socket.send(encrypt(message,alphabet,encode_alphabet).encode())  
         file.write(time.strftime("%d/%m/%y") + " " +time.strftime("%H:%M:%S") +" Mensaje enviado\n")
         data = decrypt(client_socket.recv(1024).decode(),alphabet,encode_alphabet)  # receive response
         file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") +" Mensaje recibido\n")
 
-        print('Received from server: ' + data)  # show in terminal
+        print('Received from server: ' + data) 
 
-        message = input("(" +time.strftime("%H:%M:%S")+ ")" + " Ingrese mensaje -> ")  # again take input
+        message = input("(" +time.strftime("%H:%M:%S")+ ")" + " Ingrese mensaje -> ")  
     
     file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " Mensaje de cierre conexión\n")
-    client_socket.close()  # close the connection
+    client_socket.close() 
     file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " SE CIERRA CONEXIÓN\n")
     file.write("---------------------------------------------------------------------------------------\n")
     file.close()
