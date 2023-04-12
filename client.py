@@ -41,7 +41,7 @@ def client_program():
     client_socket = socket.socket()  # instantiate
     client_socket.connect((host, port))  # connect to the server
 
-    message = input(" -> ")  # take input
+    message = input("(" +time.strftime("%H:%M:%S")+ ")" + " Ingrese mensaje -> ")  # take input
 
     while message.lower().strip() != 'chao':
         client_socket.send(encrypt(message,alphabet,encode_alphabet).encode())  # send message
@@ -51,7 +51,7 @@ def client_program():
 
         print('Received from server: ' + data)  # show in terminal
 
-        message = input(" -> ")  # again take input
+        message = input("(" +time.strftime("%H:%M:%S")+ ")" + " Ingrese mensaje -> ")  # again take input
     
     file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " Mensaje de cierre conexión\n")
     client_socket.close()  # close the connection

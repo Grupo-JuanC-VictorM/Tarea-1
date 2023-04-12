@@ -56,7 +56,7 @@ def server_program():
             file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " Mensaje de cierre recibido o no se recibió mensaje\n")
             break
         print("from connected user: " + str(data))
-        data = input(' -> ')
+        data = input("(" +time.strftime("%H:%M:%S")+ ")" +' Ingrese mensaje -> ')
         conn.send(encrypt(data,alphabet,encode_alphabet).encode())  # send data to the client
         file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " Mensaje enviado\n")
 
