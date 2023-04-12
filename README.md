@@ -1,5 +1,7 @@
 # Tarea-1
-## Integrantes: Juan Cáceres y Víctor Morales
+## Integrantes: 
+- Juan Cáceres
+- Víctor Morales
 ## Descripción: 
 Programa que crea una conexión servidor-cliente que sirve para enviar mensajes entre ellos.
 ## Instalación:
