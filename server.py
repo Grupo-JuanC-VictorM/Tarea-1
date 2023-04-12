@@ -35,32 +35,27 @@ def encrypt(text, alphabet, encode_alphabet):
 def server_program():
     file = open("logs_server.txt","a")
     file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " SE INICIA CONEXIÓN\n")
-    # get the hostname
     host = socket.gethostname()
     port = 5000  # initiate port no above 1024
 
-    server_socket = socket.socket()  # get instance
-    # look closely. The bind() function takes tuple as argument
-    server_socket.bind((host, port))  # bind host address and port together
+    server_socket = socket.socket() 
+    server_socket.bind((host, port)) 
 
-    # configure how many client the server can listen simultaneously
     server_socket.listen(2)
-    conn, address = server_socket.accept()  # accept new connection
+    conn, address = server_socket.accept()  
     print("Connection from: " + str(address))
     while True:
-        # receive data stream. it won't accept data packet greater than 1024 bytes
         data = decrypt(conn.recv(1024).decode(),alphabet,encode_alphabet)
         file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " Mensaje recibido\n")
         if not data:
-            # if data is not received break
             file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " Mensaje de cierre recibido o no se recibió mensaje\n")
             break
         print("from connected user: " + str(data))
         data = input("(" +time.strftime("%H:%M:%S")+ ")" +' Ingrese mensaje -> ')
-        conn.send(encrypt(data,alphabet,encode_alphabet).encode())  # send data to the client
+        conn.send(encrypt(data,alphabet,encode_alphabet).encode())
         file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " Mensaje enviado\n")
 
-    conn.close()  # close the connection
+    conn.close() 
     file.write(time.strftime("%d/%m/%y") + " " + time.strftime("%H:%M:%S") + " SE CIERRA CONEXIÓN\n")
     file.write("---------------------------------------------------------------------------------------\n")
     file.close()
